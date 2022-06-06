@@ -10,7 +10,10 @@ class Solution(object):
                 arr.append([low,high])
             if firstList[i][1]>secondList[j][1]:
                 j+=1
+            elif firstList[i][1]<secondList[j][1]:
+                i+=1
             else:
                 i+=1
+                j+=1
         return arr
         
