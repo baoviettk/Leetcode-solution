@@ -4,7 +4,7 @@ class Solution(object):
         n=len(nums)
         
         def dfs(i):
-            if i>=n:
+            if i==n:
                 arr.append(list(cur))
                 return
             
