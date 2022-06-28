@@ -11,11 +11,10 @@ class Solution(object):
             
             cur.append(nums[i])
             dfs(i+1)
-            cur.pop()
             
             while i+1<n and nums[i]==nums[i+1]:
                 i+=1
-            
+            cur.pop()
             dfs(i+1)
         
         dfs(0)
