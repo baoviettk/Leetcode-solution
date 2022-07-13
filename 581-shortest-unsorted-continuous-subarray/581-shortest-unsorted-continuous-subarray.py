@@ -6,7 +6,7 @@ class Solution:
         if left==len(nums)-1:
             return 0
         
-        while right>0 and nums[right]>=nums[right-1]:
+        while right>left and nums[right]>=nums[right-1]:
             right-=1
         min_var= min(nums[left:right+1])
         max_var= max(nums[left:right+1])
