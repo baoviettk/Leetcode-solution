@@ -1,22 +1,14 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        dp={}
-        mi=999999999
-        coins.sort()
-        def bfs(remain):
-            if remain in dp:
-                return dp[remain]
-            if remain==0:
-                return 0
-            mi=999999999
-            for coin in coins:
-                if coin> remain:
-                    break
-                mi=min(mi,1+bfs(remain-coin))
-            dp[remain]=mi
-            return mi
+        dp=[amount+1]*(amount+1)
+        dp[0]=0
         
-        result= bfs(amount)
-        if result >= 999999999:
-            return -1
-        return result
+        coins.sort()
+        for current in range(1,amount+1):
+            
+            for coin in coins:
+                if current-coin>-1:
+                    dp[current]= min(dp[current], 1+dp[current-coin])
+                else:
+                    break
+        return dp[amount] if dp[amount]<amount+1 else -1 
