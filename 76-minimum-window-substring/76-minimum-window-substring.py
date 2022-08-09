@@ -5,7 +5,7 @@ class Solution:
         dic={}
         l=0
         meet=0
-        min_l,min_r,min_len=0,0,999999
+        min_len=999999
         for char in t:
             dic[char]=dic.get(char,0)+1
         require=len(dic)
@@ -25,9 +25,9 @@ class Solution:
                     dic[s[l]]-=1
                     meet+=1
                     cur_len=r-l+1
-                    if cur_len<min_len:
-                        min_len=cur_len
-                        min_l,min_r=l,r
+                    if r-l+1<min_len:
+                        min_len=r-l+1
+                        result=s[l:r+1]
         if min_len==999999:
             return ""
-        return s[min_l:min_r+1]
+        return result
