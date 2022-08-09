@@ -25,11 +25,9 @@ class Solution:
                     dic[s[l]]-=1
                     meet+=1
                     cur_len=r-l+1
-                    print(cur_len)
                     if cur_len<min_len:
                         min_len=cur_len
                         min_l,min_r=l,r
         if min_len==999999:
-            print("here3")
             return ""
         return s[min_l:min_r+1]
