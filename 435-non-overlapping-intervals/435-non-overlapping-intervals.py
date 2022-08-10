@@ -1,7 +1,5 @@
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        if len(intervals)==0:
-            return 0
         intervals.sort()
         result=0
         current=intervals[0]
