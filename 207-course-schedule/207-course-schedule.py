@@ -1,27 +1,25 @@
-class Solution(object):
-    def canFinish(self, numCourses, prerequisites):
-        preCrs={i:[] for i in range(numCourses)}
-        for crs, pre in prerequisites:
-            preCrs[crs].append(pre)
-        visitSet=set()
-        
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        pre={i:[] for i in range(numCourses)}
+        cur=set()
+        for crs, preC in prerequisites:
+            pre[crs].append(preC)
+            
         def canTake(crs):
-            if preCrs[crs]==[]:
+            if pre[crs]==[]:
                 return True
-            if crs in visitSet:
+            if crs in cur:
                 return False
-            visitSet.add(crs)
-            
-            for pre in preCrs[crs]:
-                if not canTake(pre):
+            cur.add(crs)
+            for preC in pre[crs]:
+                if not canTake(preC):
                     return False
-                
-            visitSet.remove(crs)
-            preCrs[crs]=[]
-            return True
+            cur.remove(crs)
+            pre[crs]=[]
             
-        for crs in range(numCourses):
-            if not canTake(crs):
+            return True
+        
+        for i in range(numCourses):
+            if not canTake(i):
                 return False
         return True
-        
