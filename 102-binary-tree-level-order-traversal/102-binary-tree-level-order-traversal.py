@@ -1,28 +1,30 @@
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution(object):
-    def levelOrder(self, root):
+import queue
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        q = queue.Queue()
         result=[]
-        queue=[]
-        if root==None:
+        if not root:
             return result
-        
-        queue.append(root)
-        
-        while len(queue)>0:
-            current_layer=[]
-            for i in range(len(queue)):
-                current_node= queue.pop(0)
-                if current_node.left!= None:
-                    queue.append(current_node.left)
-                if current_node.right!=None:
-                    queue.append(current_node.right)
-                current_layer.append(current_node.val)
+        if root.left:
+            q.put(root.left)
+        if root.right:
+            q.put(root.right)
+        result.append([root.val])
+        while q.qsize()>0:
+            cur=[]
+            for _ in range(q.qsize()):
+                node=q.get()
+                cur.append(node.val)
+                if node.left:
+                    q.put(node.left)
+                if node.right:
+                    q.put(node.right)
+            result.append(cur)
             
-            result.append(current_layer)
-        
         return result
