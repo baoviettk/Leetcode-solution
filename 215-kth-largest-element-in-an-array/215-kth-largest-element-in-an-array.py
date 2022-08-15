@@ -1,10 +1,19 @@
 class Solution(object):
     def findKthLargest(self, nums, k):
-        for i in range(len(nums)):
-            nums[i]=-1*nums[i]
-        heapq.heapify(nums)
-        for _ in range(k-1):
-            heapq.heappop(nums)
+        k=len(nums)-k
         
-        return -1* heapq.heappop(nums)
+        def quickSelect(l,r):
+            p,pivot=l,nums[r]
+            for i in range(l,r):
+                if nums[i]<=pivot:
+                    nums[i], nums[p]=nums[p],nums[i]
+                    p+=1
+            nums[p],nums[r]=pivot, nums[p]
+            if p==k: 
+                return pivot
+            if p<k: 
+                return quickSelect(p+1,r)
+            return quickSelect(l,p-1)
+        
+        return quickSelect(0,len(nums)-1)
         
