@@ -3,6 +3,8 @@ class Solution(object):
         k=len(nums)-k
         
         def quickSelect(l,r):
+            ran= random.randint(l, r)
+            nums[ran],nums[r]=nums[r],nums[ran]
             p,pivot=l,nums[r]
             for i in range(l,r):
                 if nums[i]<=pivot:
