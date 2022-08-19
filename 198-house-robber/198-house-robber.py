@@ -2,10 +2,9 @@ class Solution:
     def rob(self, nums: List[int]) -> int:
         if len(nums)==1:
             return nums[0]
-        dp={(len(nums)-1):nums[-1]}
+        one,two=nums[-1],0
         
         for i in range(len(nums)-2,-1,-1):
-            dp[i]=max(dp.get(i+2,0)+nums[i],dp[i+1])
-        print(dp)
+            one,two=max(two+nums[i],one),one
         
-        return max(dp[0],dp[1])
+        return max(two,one)
