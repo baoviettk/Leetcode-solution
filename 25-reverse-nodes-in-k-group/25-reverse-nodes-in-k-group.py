@@ -23,7 +23,6 @@ class Solution:
         while True:
             last=prevTail
             for i in range(k):
-                print(last.val)
                 if not last.next:
                     return dummy.next
                 last=last.next
