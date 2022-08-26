@@ -15,22 +15,21 @@ class Solution:
                 cur.next=prev
                 prev=cur
                 cur=next
-            return prev
+            return prev, head
         
         dummy=ListNode(0,head)
         prevTail= dummy
         cur=head
         while True:
             last=prevTail
-            tail=prevTail.next
             for i in range(k):
+                print(last.val)
                 if not last.next:
                     return dummy.next
                 last=last.next
             nextHead=last.next
-            f=reverseK(prevTail.next)
-            print(f.val)
+            f,l=reverseK(prevTail.next)
             prevTail.next=f
-            tail.next=nextHead
-            prevTail=tail
+            l.next=nextHead
+            prevTail=l
         
