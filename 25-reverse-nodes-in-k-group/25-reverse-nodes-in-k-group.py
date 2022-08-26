@@ -1,46 +1,36 @@
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-class Solution(object):
-    def reverseKGroup(self, head, k):
-        dummy_node=ListNode(0,head)
-        group_prev=dummy_node
-        nextK=self.getKth(group_prev,k)
-        last= group_prev.next
-        # first=self.reverseKNodes(head,k)
-        # return last
-    
-        while nextK!=None:
-            next=nextK.next
-            self.reverseKNodes(group_prev.next, k)
-            #nextK=head
-            group_prev.next=nextK
-            last.next=next
-            group_prev=last
-            nextK=self.getKth(group_prev,k)
-            last= group_prev.next
-        return dummy_node.next
+class Solution:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         
-            
-    def getKth(self, curr,k):
-        while curr and k>0:
-            curr=curr.next
-            k-=1
-        return curr
-    
-    def reverseKNodes(self, first, k):
-        current=first
-        left_node_prev=None
-        prev=None
-        left_node=current
-        for i in range(k):
-            next=current.next
-            current.next=prev
-            prev=current
-            current=next
-        first=prev
-        left_node.next=current
+                    
+        def reverseK(head):
+            dummy=head
+            cur,prev=head,None
+            for i in range(k):
+                next=cur.next
+                cur.next=prev
+                prev=cur
+                cur=next
+            return prev
         
+        dummy=ListNode(0,head)
+        prevTail= dummy
+        cur=head
+        while True:
+            last=prevTail
+            tail=prevTail.next
+            for i in range(k):
+                if not last.next:
+                    return dummy.next
+                last=last.next
+            nextHead=last.next
+            f=reverseK(prevTail.next)
+            print(f.val)
+            prevTail.next=f
+            tail.next=nextHead
+            prevTail=tail
         
