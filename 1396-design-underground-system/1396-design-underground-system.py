@@ -2,24 +2,23 @@ class UndergroundSystem:
 
     def __init__(self):
         self.average={}
-        self.checkIn_map={}
+        self.check_in_map={}
         
 
     def checkIn(self, id: int, stationName: str, t: int) -> None:
-        self.checkIn_map[id]=[stationName, t]
+        self.check_in_map[id]=[stationName, t]
 
     def checkOut(self, id: int, stationName: str, t: int) -> None:
-        # [name_in,time_in] = self.checkIn.pop(id)
-        in_info = self.checkIn_map.pop(id)
-        in_out=(in_info[0],stationName)
-        # [total_hour, total_count]=self.average.pop(in_out,[0,0])
-        avr_info=self.average.pop(in_out,[0,0])
-        self.average[in_out]=[avr_info[0]+(t-in_info[1]),avr_info[1]+1]
+        [name_in,time_in] = self.check_in_map.pop(id)
+        # in_info = self.check_in_map.pop(id)
+        in_out=(name_in,stationName)
+        [total_hour, total_count]=self.average.pop(in_out,[0,0])
+        self.average[in_out]=[total_hour+(t-time_in),total_count+1]
 
     def getAverageTime(self, startStation: str, endStation: str) -> float:
         in_out=(startStation,endStation)
-        avr_info=self.average[in_out]
-        return avr_info[0]/avr_info[1]
+        [total_hour, total_count]=self.average[in_out]
+        return total_hour/total_count
 
 
 # Your UndergroundSystem object will be instantiated and called as such:
