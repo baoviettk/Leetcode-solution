@@ -1,22 +1,24 @@
 class Solution:
     def invalidTransactions(self, transactions: List[str]) -> List[str]:
-        hashmap = {}
-        result = set()
-        for i, t in enumerate(transactions):
-            name, time, amount, city =  t.split(",")
-            if name not in hashmap:
-                hashmap[name] = []
-                if int(amount) > 1000:
-                    result.add(i)
-            else:
-                prevTrans = hashmap[name]
-                for j in range(len(prevTrans)):
-                    prevName, prevTime, prevAmount, prevCity = transactions[prevTrans[j]].split(",")
-                    if int(amount) > 1000:
-                        result.add(i)
-                    if abs(int(time) - int(prevTime)) <= 60 and city != prevCity:
-                        result.add(i)
-                        result.add(prevTrans[j]) 
-            hashmap[name].append(i)
-   
-        return [transactions[t] for t in result]
+        ans = []
+        length = len(transactions)
+        if not length: return ans
+        name,time,money,city = [],[],[],[]
+        add = [1]*length
+        for trans in transactions:
+            tran = trans.split(',')
+            name.append(tran[0])
+            time.append(eval(tran[1]))
+            money.append(eval(tran[2]))
+            city.append(tran[3])
+        for i in range(length):
+            if money[i] > 1000:
+                add[i] = False
+            for j in range(i+1,length):
+                if name[i] == name[j] and abs(time[i]-time[j])<= 60 and city[i]!=city[j]:
+                    add[i] = False
+                    add[j] = False
+        for ind,val in enumerate(add):
+            if not val:
+                ans.append(transactions[ind])
+        return ans
