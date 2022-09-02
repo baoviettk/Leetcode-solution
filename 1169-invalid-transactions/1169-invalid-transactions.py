@@ -1,24 +1,50 @@
 class Solution:
-    def invalidTransactions(self, transactions: List[str]) -> List[str]:
-        ans = []
-        length = len(transactions)
-        if not length: return ans
-        name,time,money,city = [],[],[],[]
-        add = [1]*length
-        for trans in transactions:
-            tran = trans.split(',')
-            name.append(tran[0])
-            time.append(eval(tran[1]))
-            money.append(eval(tran[2]))
-            city.append(tran[3])
-        for i in range(length):
-            if money[i] > 1000:
-                add[i] = False
-            for j in range(i+1,length):
-                if name[i] == name[j] and abs(time[i]-time[j])<= 60 and city[i]!=city[j]:
-                    add[i] = False
-                    add[j] = False
-        for ind,val in enumerate(add):
-            if not val:
-                ans.append(transactions[ind])
-        return ans
+    def invalidTransactions(self, transactions):
+        """
+        :type transactions: List[str]
+        :rtype: List[str]
+        """
+        
+        r = {}
+                
+        inv = []        
+        for i in transactions:
+            split = i.split(",")
+            name = str(split[0])
+            time = int(split[1])
+            amount = int(split[2])
+            city = str(split[3])
+            
+            if time not in r:
+                r[time] = {
+                    name: [city]
+                }
+            else:
+                if name not in r[time]:
+                    r[time][name]=[city]
+                else:
+                    r[time][name].append(city)
+                    
+        
+        for i in transactions:
+            split = i.split(",")
+            name = str(split[0])
+            time = int(split[1])
+            amount = int(split[2])
+            city = str(split[3])
+            
+            
+            if amount > 1000:
+                inv.append(i)
+                continue
+            
+            for j in range(time-60, time+61):
+                if j not in r:
+                    continue
+                if name not in r[j]:
+                    continue
+                if len(r[j][name]) > 1 or (r[j][name][0] != city):
+                    inv.append(i)
+                    break
+                                        
+        return inv       
