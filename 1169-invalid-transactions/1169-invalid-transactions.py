@@ -1,6 +1,6 @@
 class Solution:
     def invalidTransactions(self, transactions: List[str]) -> List[str]:
-        transaction_map = defaultdict(set)
+        transaction_map = defaultdict(set)   #(time,name)=>city
                 
         invalid = []
         for transaction in transactions:
@@ -26,11 +26,11 @@ class Solution:
                 
                 # check to see if there is another transaction from a diff city if so its invalid
                 if city in sus_transaction:
-                    sus_transaction.remove(city)
-                    if len(sus_transaction) >= 1:
+                    # sus_transaction.remove(city)
+                    if len(sus_transaction) >= 2:
                         invalid.append(transaction)
                         break
-                    sus_transaction.add(city)
+                    # sus_transaction.add(city)
                 else:
                     invalid.append(transaction)
                     break
