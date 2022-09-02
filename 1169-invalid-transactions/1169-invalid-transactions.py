@@ -1,50 +1,38 @@
 class Solution:
-    def invalidTransactions(self, transactions):
-        """
-        :type transactions: List[str]
-        :rtype: List[str]
-        """
-        
-        r = {}
+    def invalidTransactions(self, transactions: List[str]) -> List[str]:
+        transaction_map = defaultdict(set)
                 
-        inv = []        
-        for i in transactions:
-            split = i.split(",")
-            name = str(split[0])
-            time = int(split[1])
-            amount = int(split[2])
-            city = str(split[3])
-            
-            if time not in r:
-                r[time] = {
-                    name: [city]
-                }
-            else:
-                if name not in r[time]:
-                    r[time][name]=[city]
-                else:
-                    r[time][name].append(city)
+        invalid = []
+        for transaction in transactions:
+            name, time, amount, city = transaction.split(",")
+            time = int(time)            
+            transaction_map[(time, name)].add(city)
                     
         
-        for i in transactions:
-            split = i.split(",")
-            name = str(split[0])
-            time = int(split[1])
-            amount = int(split[2])
-            city = str(split[3])
-            
+        for transaction in transactions:
+            name, time, amount, city = transaction.split(",")
+            time = int(time)
+            amount = int(amount)
             
             if amount > 1000:
-                inv.append(i)
+                invalid.append(transaction)
                 continue
             
-            for j in range(time-60, time+61):
-                if j not in r:
+            # check to see if there is a time within 60 minutes of this transaction
+            for time in range(time-60, time+61):
+                if (time, name) not in transaction_map:
                     continue
-                if name not in r[j]:
-                    continue
-                if len(r[j][name]) > 1 or (r[j][name][0] != city):
-                    inv.append(i)
+                sus_transaction = transaction_map[(time, name)]
+                
+                # check to see if there is another transaction from a diff city if so its invalid
+                if city in sus_transaction:
+                    sus_transaction.remove(city)
+                    if len(sus_transaction) >= 1:
+                        invalid.append(transaction)
+                        break
+                    sus_transaction.add(city)
+                else:
+                    invalid.append(transaction)
                     break
                                         
-        return inv       
+        return invalid 
