@@ -12,3 +12,6 @@ class Solution:
             result+=costs[dif[i][1]][0]
             
         return result
+    
+    # time:O(NlogN)
+    # space: O(N)
