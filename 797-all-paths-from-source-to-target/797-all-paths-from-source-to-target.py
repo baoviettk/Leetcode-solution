@@ -4,14 +4,12 @@ class Solution:
         result=[]
         def dfs(start):
             for des in graph[start]:
+                cur.append(des)
                 if des ==len(graph)-1:
-                    temp=list(cur)
-                    temp.append(des)
-                    result.append(temp)
+                    result.append(list(cur))
                 else:
-                    cur.append(des)
                     dfs(des)
-                    cur.pop()
+                cur.pop()
         dfs(0)
         return result
                     
