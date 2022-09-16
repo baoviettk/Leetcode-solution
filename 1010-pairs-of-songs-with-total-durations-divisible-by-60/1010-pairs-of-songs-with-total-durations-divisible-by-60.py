@@ -1,10 +1,10 @@
 class Solution:
     def numPairsDivisibleBy60(self, time: List[int]) -> int:
-        dic=defaultdict(lambda:0)
+        dic={}
         result=0
         for t in time:
             mod= t%60
-            dic[mod]+=1
+            dic[mod]= dic.get(mod,0)+1
         kys=dic.keys()
         for k in kys:
             if k>30:
