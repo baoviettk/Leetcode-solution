@@ -11,6 +11,7 @@ class Solution:
                 else:
                     break
             
+        for i in range(len(s)-1):
             l,r=i,i+1
             while l>-1 and r<len(s):
                 if s[l]==s[r]:
@@ -19,5 +20,5 @@ class Solution:
                     r+=1
                 else:
                     break
+                    
         return result
-            
