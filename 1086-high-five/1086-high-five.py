@@ -5,6 +5,6 @@ class Solution:
         result=[]
         for id, score in items:
             dic[id].append(score)
-        for k in dic:
+        for k in sorted(dic.keys()):
             result.append([k, sum(heapq.nlargest(5,dic[k]))//5])
-        return sorted(result, key= lambda x: x[0])
+        return result
