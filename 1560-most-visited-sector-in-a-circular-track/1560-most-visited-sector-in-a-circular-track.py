@@ -11,3 +11,6 @@ class Solution:
         for i in range(st,n+1):
             result.append(i)
         return result
+    
+# Time O(N)
+# Space O(N)
