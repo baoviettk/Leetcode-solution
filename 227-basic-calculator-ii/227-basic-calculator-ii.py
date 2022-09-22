@@ -1,13 +1,12 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        s+="+"
         stack,cur_num,ope=[],0,"+"
         all_oper={"+","-","*", "/"}
         for i in range(len(s)):
             char=s[i]
             if char.isnumeric():
                 cur_num=cur_num*10+int(char)
-            elif char in all_oper:
+            if char in all_oper or i ==len(s)-1:
                 if ope=="+":
                     stack.append(cur_num)
                 elif ope=="-":
