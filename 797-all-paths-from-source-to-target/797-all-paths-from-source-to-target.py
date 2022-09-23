@@ -1,16 +1,23 @@
 class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
-        cur=[0]
         result=[]
+        cur=[0]
+        n=len(graph)
         def dfs(start):
-            for des in graph[start]:
-                cur.append(des)
-                if des ==len(graph)-1:
+            for i in graph[start]:
+                cur.append(i)
+                if i==n-1:
                     result.append(list(cur))
                 else:
-                    dfs(des)
+                    dfs(i)
                 cur.pop()
+        
         dfs(0)
         return result
+                    
+        
+    
+#     time: O(n+v)
+#     space: O(n)
                     
             
