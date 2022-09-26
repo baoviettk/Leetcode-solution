@@ -5,9 +5,7 @@ class Solution:
         for ch in s:
             if ch=="(":
                 cur+=1
-                stk.append(ch)
             elif ch==")":
-                stk.pop()
                 res=max(cur,res)
                 cur-=1
         return res
