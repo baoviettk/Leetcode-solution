@@ -1,16 +1,16 @@
 class Leaderboard:
 
     def __init__(self):
-        self.board={}
+        self.scores=defaultdict(lambda: 0)
+
     def addScore(self, playerId: int, score: int) -> None:
-        self.board[playerId]=self.board.get(playerId,0) + score
+        self.scores[playerId]+=score
 
     def top(self, K: int) -> int:
-        heapK=heapq.nlargest(K,self.board.values())
-        return sum(heapK)
+        return sum(heapq.nlargest(K,self.scores.values()))
 
     def reset(self, playerId: int) -> None:
-        del self.board[playerId]
+        self.scores[playerId]=0
 
 
 # Your Leaderboard object will be instantiated and called as such:
