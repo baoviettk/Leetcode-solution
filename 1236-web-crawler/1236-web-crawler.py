@@ -11,19 +11,19 @@
 
 class Solution:
     def crawl(self, startUrl: str, htmlParser: 'HtmlParser') -> List[str]:
+        q=collections.deque([startUrl])
         visited={startUrl}
-        q=deque([startUrl])
-        
+        start=self.getHost(startUrl)
         while q:
             cur=q.popleft()
-            urls=htmlParser.getUrls(cur)
-            cur_dom=self.getDomain(cur)
-            for u in urls:
-                if u in visited or cur_dom!=self.getDomain(u): continue
-                q.append(u)
-                visited.add(u)
-            
+            nxt=htmlParser.getUrls(cur)
+            for s in nxt:
+                if s not in visited and self.getHost(s)==start:
+                    visited.add(s)
+                    q.append(s)
+        
         return list(visited)
     
-    def getDomain(self, url:str):
-        return url.split('http://')[1].split('/')[0]
+    def getHost(self, url)-> str:
+        return url.split("//")[1].split("/")[0]
+    
